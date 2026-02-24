@@ -21,7 +21,7 @@ namespace ApiOmniStock
                 {
                     Title = "ApiOmniStock",
                     Version = "v1",
-                    Description = "API para gestión de inventario OmniStock"
+                    Description = "API para gestión de inventario"
                 });
             });
 
