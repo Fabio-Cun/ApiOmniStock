@@ -1,0 +1,6 @@
+@ApiOmniStock_HostAddress = http://localhost:5294
+
+GET {{ApiOmniStock_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
