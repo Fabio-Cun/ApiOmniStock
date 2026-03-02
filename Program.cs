@@ -1,13 +1,19 @@
 
 using Microsoft.OpenApi;
-
-namespace ApiOmniStock
+using DotNetEnv;
+using OmniStock.Infraestructura;
+using OmniStock.Infraestructura.InyeccionDependencias;
+namespace OmniStock.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            Env.Load(); // Carga las variables de entorno desde el archivo .env
+
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.DependenciasInfraestructura(builder.Configuration);
 
             // Add services to the container.
 

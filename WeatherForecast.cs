@@ -1,4 +1,4 @@
-namespace ApiOmniStock
+namespace OmniStock.Api
 {
     public class WeatherForecast
     {

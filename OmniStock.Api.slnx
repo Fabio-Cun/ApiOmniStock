@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../OmniStock.Aplicacion/OmniStock.Aplicacion.csproj" Id="a95b45ae-fc36-4246-b3c6-85ccff8c6586" />
+  <Project Path="../OmniStock.Dominio/OmniStock.Dominio.csproj" Id="29f19a91-0f40-45ac-a4d3-79c2dcda28d4" />
+  <Project Path="../OmniStock.Infraestructura/OmniStock.Infraestructura.csproj" Id="0cba8c54-75e0-4225-8c56-a9f4b926e5d6" />
+  <Project Path="OmniStock.Api.csproj" />
+</Solution>
