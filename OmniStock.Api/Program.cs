@@ -13,7 +13,7 @@ namespace OmniStock.Api
 
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.DependenciasInfraestructura(builder.Configuration);
+            builder.Services.DependenciasInfraestructura();
 
             // Add services to the container.
 
