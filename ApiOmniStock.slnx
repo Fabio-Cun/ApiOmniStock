@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="OmniStock.Api/OmniStock.Api.csproj" />
+  <Project Path="OmniStock.Aplicacion/OmniStock.Aplicacion.csproj" />
+  <Project Path="OmniStock.Dominio/OmniStock.Dominio.csproj" />
+  <Project Path="OmniStock.Infraestructura/OmniStock.Infraestructura.csproj" />
+</Solution>
