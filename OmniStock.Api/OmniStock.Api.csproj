@@ -20,11 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OmniStock.Aplicacion\OmniStock.Aplicacion.csproj" />
     <ProjectReference Include="..\OmniStock.Infraestructura\OmniStock.Infraestructura.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\Login\" />
   </ItemGroup>
 
 </Project>

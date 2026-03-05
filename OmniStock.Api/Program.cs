@@ -3,6 +3,7 @@ using Microsoft.OpenApi;
 using DotNetEnv;
 using OmniStock.Infraestructura;
 using OmniStock.Infraestructura.InyeccionDependencias;
+using OmniStock.Aplicacion.InyeccionDependencias;
 namespace OmniStock.Api
 {
     public class Program
@@ -13,9 +14,10 @@ namespace OmniStock.Api
 
             var builder = WebApplication.CreateBuilder(args);
 
+            // se registran las dependencias de la infraestructura y la aplicación
             builder.Services.DependenciasInfraestructura(builder.Configuration);
+            builder.Services.DependenciasAplicacion();
 
-            // Add services to the container.
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

@@ -15,7 +15,7 @@ namespace OmniStock.Infraestructura.Repositorios
         }
 
         // Obtener todos
-        public async Task<List<Usuario>> ObtenerTodosAsync()
+        public async Task<List<Usuario>> ObtenerTodosUsuariosAsync()
         {
             return await _context.Usuarios
                 .Include(u => u.IdRolNavigation)
@@ -37,29 +37,60 @@ namespace OmniStock.Infraestructura.Repositorios
                 .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
         }
 
-        // Crear
-        public async Task<Usuario> CrearAsync(Usuario usuario)
-        {
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-            return usuario;
-        }
-
         // Actualizar
-        public async Task ActualizarAsync(Usuario usuario)
+        public async Task ActualizarUsuarioAsync(Usuario usuario)
         {
             _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
         }
 
         // Eliminar
-        public async Task EliminarAsync(int id)
+        public async Task EliminarUsuarioAsync(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);
                 await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Usuario?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol)
+        {
+            // Verificar si ya existe
+            var existe = await _context.Usuarios.AnyAsync(u => u.NombreUsuario == nombreUsuario);
+
+            if (existe)
+                return null; // Usuario ya existe
+
+
+            var usuario = new Usuario
+            {
+                NombreUsuario = nombreUsuario,
+                Contrasena = contrasena,
+                IdRol = idRol
+            };
+
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return usuario;
+        }
+
+        public async Task<Usuario?> LoginAsync(string nombreUsuario, string password)
+        {
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+
+            if (usuario == null)
+                return null;
+            if (password != usuario.Contrasena)
+            {
+                return null;
+            }
+            else
+            {
+                return usuario;
+
             }
         }
     }

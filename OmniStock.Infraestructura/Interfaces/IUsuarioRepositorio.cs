@@ -7,11 +7,12 @@ namespace OmniStock.Infraestructura.Interfaces
 {
     public interface IUsuarioRepositorio
     {
-        Task<List<Usuario>> ObtenerTodosAsync();
+        Task<Usuario?> RegistrarAsync(string nombreUsuario, string password, int idRol);
+        Task<Usuario?> LoginAsync(string nombreUsuario, string password);
+        Task<List<Usuario>> ObtenerTodosUsuariosAsync();
         Task<Usuario?> ObtenerPorIdAsync(int id);
         Task<Usuario?> ObtenerPorNombreUsuarioAsync(string nombreUsuario);
-        Task<Usuario> CrearAsync(Usuario usuario);
-        Task ActualizarAsync(Usuario usuario);
-        Task EliminarAsync(int id);
+        Task ActualizarUsuarioAsync(Usuario usuario);
+        Task EliminarUsuarioAsync(int id);
     }
 }
