@@ -15,7 +15,7 @@ namespace OmniStock.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // se registran las dependencias de la infraestructura y la aplicación
-            builder.Services.DependenciasInfraestructura(builder.Configuration);
+            builder.Services.DependenciasInfraestructura();
             builder.Services.DependenciasAplicacion();
 
 

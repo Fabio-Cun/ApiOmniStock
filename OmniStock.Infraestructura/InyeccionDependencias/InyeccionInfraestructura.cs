@@ -10,10 +10,10 @@ namespace OmniStock.Infraestructura.InyeccionDependencias
 {
     public static class InyeccionInfraestructura
     {
-        public static IServiceCollection DependenciasInfraestructura(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection DependenciasInfraestructura(this IServiceCollection services)
         {
           
-            var connectionString = configuration["MYSQL_CONNECTION_STRING"];
+            var connectionString = Environment.GetEnvironmentVariable("MYSQL_CONNECTION_STRING");
 
             if (string.IsNullOrEmpty(connectionString))
                 throw new Exception("MYSQL_CONNECTION_STRING no está configurado.");
