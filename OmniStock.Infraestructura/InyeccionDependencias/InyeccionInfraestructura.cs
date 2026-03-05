@@ -21,6 +21,7 @@ namespace OmniStock.Infraestructura.InyeccionDependencias
             var serverVersion = ServerVersion.AutoDetect(connectionString);
             
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();  // Registrar el repositorio de usuario
+            services.AddScoped<IRolRepositorio, RolesRepositorio>(); // Registrar el repositorio de roles
             services.AddDbContext<OmniStockDbContext>(options =>
                 options.UseMySql(connectionString, serverVersion)
             );

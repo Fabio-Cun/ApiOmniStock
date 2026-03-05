@@ -15,7 +15,8 @@ namespace OmniStock.Aplicacion.InyeccionDependencias
         {
             
             services.AddScoped<IUsuarioService, UsuarioService>();
-            
+            services.AddScoped<IRolservice, RolService>();
+
             return services;
         }
     }

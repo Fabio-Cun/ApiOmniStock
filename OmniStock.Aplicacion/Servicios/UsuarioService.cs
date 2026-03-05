@@ -47,6 +47,7 @@ namespace OmniStock.Aplicacion.Servicios
         public async Task<UsuarioDto?> RegistrarAsync(RegistrarUsuarioDto registrarDto)
         {
             var usuario = await _usuarioRepositorio.RegistrarAsync(registrarDto.NombreUsuario,
+                                                                   registrarDto.NombreCompleto,
                                                                    registrarDto.Contrasena,
                                                                    registrarDto.IdRol);
 
@@ -56,6 +57,7 @@ namespace OmniStock.Aplicacion.Servicios
             {
                 IdUsuario = usuario.IdUsuario,
                 NombreUsuario = usuario.NombreUsuario,
+                NombreCompleto = usuario.NombreCompleto,
                 IdRol = usuario.IdRol
             };
         }

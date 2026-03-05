@@ -33,7 +33,7 @@ namespace OmniStock.Infraestructura.Repositorios
             return MapToDomain(usuario);
         }
 
-        public async Task<UsuarioDominio?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol)
+        public async Task<UsuarioDominio?> RegistrarAsync(string nombreUsuario,string nombreCompleto, string contrasena, int idRol)
         {
             var existe = await _context.Usuarios
                 .AnyAsync(u => u.NombreUsuario == nombreUsuario);
@@ -44,6 +44,7 @@ namespace OmniStock.Infraestructura.Repositorios
             var usuario = new Usuario
             {
                 NombreUsuario = nombreUsuario,
+                NombreCompleto = nombreCompleto,
                 Contrasena = contrasena,
                 IdRol = idRol,
                 FechaCreacion = DateTime.Now
