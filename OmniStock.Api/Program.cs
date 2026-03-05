@@ -1,9 +1,8 @@
 
-using Microsoft.OpenApi;
 using DotNetEnv;
-using OmniStock.Infraestructura;
-using OmniStock.Infraestructura.InyeccionDependencias;
+using Microsoft.OpenApi;
 using OmniStock.Aplicacion.InyeccionDependencias;
+using OmniStock.Infraestructura.InyeccionDependencias;
 namespace OmniStock.Api
 {
     public class Program

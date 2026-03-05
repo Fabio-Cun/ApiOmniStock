@@ -7,8 +7,8 @@ namespace OmniStock.Aplicacion.Interfaces
     {
         Task<List<UsuarioDto>> ObtenerUsuariosAsync();
         Task<UsuarioDto?> ObtenerUsuarioPorIdAsync(int id);
-        Task<UsuarioDto?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol);
-        Task<UsuarioDto?> LoginAsync(string nombreUsuario, string password);
+        Task<UsuarioDto?> RegistrarAsync(RegistrarUsuarioDto registrar);
+        Task<UsuarioDto?> LoginAsync(LoginRequestDto login);
         Task<bool> EliminarUsuarioAsync(int id);
     }
 

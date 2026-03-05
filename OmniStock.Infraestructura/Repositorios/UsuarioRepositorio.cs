@@ -61,9 +61,13 @@ namespace OmniStock.Infraestructura.Repositorios
             var existe = await _context.Usuarios.AnyAsync(u => u.NombreUsuario == nombreUsuario);
 
             if (existe)
+            {
                 return null; // Usuario ya existe
-
-
+            }
+            else if (nombreUsuario == null || contrasena == null)
+            {
+                return null; // Datos incompletos
+            }
             var usuario = new Usuario
             {
                 NombreUsuario = nombreUsuario,

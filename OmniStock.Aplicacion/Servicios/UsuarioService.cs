@@ -41,9 +41,11 @@ namespace OmniStock.Aplicacion.Servicios
             };
         }
 
-        public async Task<UsuarioDto?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol)
+        public async Task<UsuarioDto?> RegistrarAsync(RegistrarUsuarioDto registrarDto)
         {
-            var usuario = await _usuarioRepositorio.RegistrarAsync(nombreUsuario, contrasena, idRol);
+            var usuario = await _usuarioRepositorio.RegistrarAsync(registrarDto.NombreUsuario,
+                                                                   registrarDto.Contrasena,
+                                                                   registrarDto.IdRol );
 
             if (usuario == null) return null;
 
@@ -55,9 +57,10 @@ namespace OmniStock.Aplicacion.Servicios
             };
         }
 
-        public async Task<UsuarioDto?> LoginAsync(string nombreUsuario, string password)
+        public async Task<UsuarioDto?> LoginAsync(LoginRequestDto loginRequestDto)
         {
-            var usuario = await _usuarioRepositorio.LoginAsync(nombreUsuario, password);
+            var usuario = await _usuarioRepositorio.LoginAsync(loginRequestDto.NombreUsuario,
+                                                               loginRequestDto.Password);
 
             if (usuario == null) return null;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmniStock.Aplicacion.Interfaces;
 
-namespace OmniStock.Api.Controllers.Login
+namespace OmniStock.Api.Controllers.Usuarios
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -28,28 +28,6 @@ namespace OmniStock.Api.Controllers.Login
 
             if (usuario == null)
                 return NotFound();
-
-            return Ok(usuario);
-        }
-
-        [HttpPost("registrar")]
-        public async Task<IActionResult> Registrar(string nombreUsuario, string contrasena, int idRol)
-        {
-            var usuario = await _usuarioService.RegistrarAsync(nombreUsuario, contrasena, idRol);
-
-            if (usuario == null)
-                return BadRequest("El usuario ya existe");
-
-            return Ok(usuario);
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(string nombreUsuario, string password)
-        {
-            var usuario = await _usuarioService.LoginAsync(nombreUsuario, password);
-
-            if (usuario == null)
-                return Unauthorized();
 
             return Ok(usuario);
         }
