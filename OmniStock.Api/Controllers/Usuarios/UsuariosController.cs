@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OmniStock.Aplicacion.DTO.UsuariosDtos;
 using OmniStock.Aplicacion.Interfaces;
 
 namespace OmniStock.Api.Controllers.Usuarios
@@ -14,14 +15,14 @@ namespace OmniStock.Api.Controllers.Usuarios
             _usuarioService = usuarioService;
         }
 
-        [HttpGet]
+        [HttpGet("ListarUsuarios")]
         public async Task<IActionResult> ObtenerUsuarios()
         {
             var usuarios = await _usuarioService.ObtenerUsuariosAsync();
             return Ok(usuarios);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("ObtenerPorId/{id}")]
         public async Task<IActionResult> ObtenerPorId(int id)
         {
             var usuario = await _usuarioService.ObtenerUsuarioPorIdAsync(id);
@@ -32,7 +33,7 @@ namespace OmniStock.Api.Controllers.Usuarios
             return Ok(usuario);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("BorrarUsuario/{id}")]
         public async Task<IActionResult> Eliminar(int id)
         {
             var eliminado = await _usuarioService.EliminarUsuarioAsync(id);
@@ -41,6 +42,16 @@ namespace OmniStock.Api.Controllers.Usuarios
                 return NotFound();
 
             return Ok("Usuario eliminado");
+        }
+
+
+        
+        [HttpPut("ActualizarUsuario")]
+        public async Task<IActionResult> Actualizar([FromBody] ActualizarUsuarioDto actualizar)
+        {
+            await _usuarioService.ActualizarUsuarioAsync(actualizar);
+            return Ok("Usuario actualizado");   
+
         }
     }
 }

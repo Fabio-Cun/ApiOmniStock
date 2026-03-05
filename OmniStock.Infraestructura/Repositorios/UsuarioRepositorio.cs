@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OmniStock.Dominio;
 using OmniStock.Infraestructura.Datos;
 using OmniStock.Infraestructura.Interfaces;
 using OmniStock.Infraestructura.Modelos;
@@ -14,40 +15,61 @@ namespace OmniStock.Infraestructura.Repositorios
             _context = context;
         }
 
-        // Obtener todos
-        public async Task<List<Usuario>> ObtenerTodosUsuariosAsync()
+        public async Task<List<UsuarioDominio>> ObtenerTodosUsuariosAsync()
         {
-            return await _context.Usuarios
-                .Include(u => u.IdRolNavigation)
-                .ToListAsync();
+            var usuarios = await _context.Usuarios.ToListAsync();
+
+            return usuarios.Select(MapToDomain).ToList();
         }
 
-        // Obtener por Id
-        public async Task<Usuario?> ObtenerPorIdAsync(int id)
+        public async Task<UsuarioDominio?> ObtenerPorIdAsync(int id)
         {
-            return await _context.Usuarios
-                .Include(u => u.IdRolNavigation)
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.IdUsuario == id);
+
+            if (usuario == null)
+                return null;
+
+            return MapToDomain(usuario);
         }
 
-        // Obtener por nombre usuario (para login)
-        public async Task<Usuario?> ObtenerPorNombreUsuarioAsync(string nombreUsuario)
+        public async Task<UsuarioDominio?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol)
         {
-            return await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
-        }
+            var existe = await _context.Usuarios
+                .AnyAsync(u => u.NombreUsuario == nombreUsuario);
 
-        // Actualizar
-        public async Task ActualizarUsuarioAsync(Usuario usuario)
-        {
-            _context.Usuarios.Update(usuario);
+            if (existe)
+                return null;
+
+            var usuario = new Usuario
+            {
+                NombreUsuario = nombreUsuario,
+                Contrasena = contrasena,
+                IdRol = idRol,
+                FechaCreacion = DateTime.Now
+            };
+
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
+
+            return MapToDomain(usuario);
         }
 
-        // Eliminar
+        public async Task<UsuarioDominio?> LoginAsync(string nombreUsuario, string password)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+
+            if (usuario == null || usuario.Contrasena != password)
+                return null;
+
+            return MapToDomain(usuario);
+        }
+
         public async Task EliminarUsuarioAsync(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
+
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);
@@ -55,47 +77,30 @@ namespace OmniStock.Infraestructura.Repositorios
             }
         }
 
-        public async Task<Usuario?> RegistrarAsync(string nombreUsuario, string contrasena, int idRol)
+        public async Task ActualizarUsuarioAsync(UsuarioDominio usuarioDominio)
         {
-            // Verificar si ya existe
-            var existe = await _context.Usuarios.AnyAsync(u => u.NombreUsuario == nombreUsuario);
-
-            if (existe)
-            {
-                return null; // Usuario ya existe
-            }
-            else if (nombreUsuario == null || contrasena == null)
-            {
-                return null; // Datos incompletos
-            }
-            var usuario = new Usuario
-            {
-                NombreUsuario = nombreUsuario,
-                Contrasena = contrasena,
-                IdRol = idRol
-            };
-
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-
-            return usuario;
-        }
-
-        public async Task<Usuario?> LoginAsync(string nombreUsuario, string password)
-        {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+            var usuario = await _context.Usuarios.FindAsync(usuarioDominio.IdUsuario);
 
             if (usuario == null)
-                return null;
-            if (password != usuario.Contrasena)
-            {
-                return null;
-            }
-            else
-            {
-                return usuario;
+                return;
 
-            }
+            usuario.NombreUsuario = usuarioDominio.NombreUsuario;
+            usuario.NombreCompleto = usuarioDominio.NombreCompleto;
+            usuario.IdRol = usuarioDominio.IdRol;
+
+            await _context.SaveChangesAsync();
+        }
+
+        private static UsuarioDominio MapToDomain(Usuario usuario)
+        {
+            return new UsuarioDominio
+            {
+                IdUsuario = usuario.IdUsuario,
+                NombreUsuario = usuario.NombreUsuario,
+                NombreCompleto = usuario.NombreCompleto,
+                IdRol = usuario.IdRol,
+                FechaCreacion = usuario.FechaCreacion
+            };
         }
     }
 }

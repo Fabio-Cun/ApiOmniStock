@@ -1,4 +1,5 @@
 ﻿using OmniStock.Aplicacion.DTO;
+using OmniStock.Aplicacion.DTO.UsuariosDtos;
 
 namespace OmniStock.Aplicacion.Interfaces
 {
@@ -10,6 +11,7 @@ namespace OmniStock.Aplicacion.Interfaces
         Task<UsuarioDto?> RegistrarAsync(RegistrarUsuarioDto registrar);
         Task<UsuarioDto?> LoginAsync(LoginRequestDto login);
         Task<bool> EliminarUsuarioAsync(int id);
+        Task<ActualizarUsuarioDto>ActualizarUsuarioAsync(ActualizarUsuarioDto actualizar);
     }
 
 }

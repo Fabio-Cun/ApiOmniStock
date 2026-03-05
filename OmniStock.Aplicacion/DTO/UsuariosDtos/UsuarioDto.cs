@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OmniStock.Aplicacion.DTO
+namespace OmniStock.Aplicacion.DTO.UsuariosDtos
 {
     public class UsuarioDto
     {
