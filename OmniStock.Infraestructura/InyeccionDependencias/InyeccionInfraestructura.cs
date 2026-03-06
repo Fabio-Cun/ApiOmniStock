@@ -19,7 +19,12 @@ namespace OmniStock.Infraestructura.InyeccionDependencias
                 throw new Exception("MYSQL_CONNECTION_STRING no está configurado.");
 
             var serverVersion = ServerVersion.AutoDetect(connectionString);
-            
+
+            services.AddScoped<IVentaRepositorio, VentaRepositorio>(); // Registrar el repositorio de ventas
+            services.AddScoped<IProductoRepositorio, ProductoRepositorio>(); // Registrar el repositorio de productos
+            services.AddScoped<IInventarioRepositorio, InventarioRepositorio>(); // Registrar el repositorio de productos
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>(); // Registrar el repositorio de clientes
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>(); // Registrar el repositorio de categorías
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();  // Registrar el repositorio de usuario
             services.AddScoped<IRolRepositorio, RolesRepositorio>(); // Registrar el repositorio de roles
             services.AddDbContext<OmniStockDbContext>(options =>
