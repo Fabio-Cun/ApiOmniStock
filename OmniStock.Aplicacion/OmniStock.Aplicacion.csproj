@@ -10,4 +10,8 @@
     <ProjectReference Include="..\OmniStock.Infraestructura\OmniStock.Infraestructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\NewFolder\" />
+  </ItemGroup>
+
 </Project>

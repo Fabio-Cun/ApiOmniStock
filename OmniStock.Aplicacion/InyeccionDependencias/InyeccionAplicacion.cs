@@ -13,7 +13,7 @@ namespace OmniStock.Aplicacion.InyeccionDependencias
     {
         public static IServiceCollection DependenciasAplicacion(this IServiceCollection services)
         {
-            
+            services.AddScoped<IProductoService, ProductoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IRolservice, RolService>();
 

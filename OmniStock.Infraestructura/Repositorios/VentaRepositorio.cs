@@ -113,7 +113,7 @@ namespace OmniStock.Infraestructura.Repositorios
             }
         }
 
-        private static VentaDominio MapToDomain(Venta venta)
+       private static VentaDominio MapToDomain(Venta venta)
         {
             return new VentaDominio
             {
@@ -122,7 +122,7 @@ namespace OmniStock.Infraestructura.Repositorios
                 IdUsuario = venta.IdUsuario,
                 FechaVenta = venta.FechaVenta,
                 Total = venta.Total,
-                Detalles = venta.DetalleVenta.Select(d => new  DetalleVenta
+                Detalles = venta.DetalleVenta.Select(d => new DetalleVentaDominio
                 {
                     IdDetalle = d.IdDetalle,
                     IdVenta = d.IdVenta,
