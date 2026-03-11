@@ -1,4 +1,4 @@
-
+using System;
 using DotNetEnv;
 using Microsoft.OpenApi;
 using OmniStock.Aplicacion.InyeccionDependencias;
@@ -32,19 +32,47 @@ namespace OmniStock.Api
                 });
             });
 
+            // CORS: usa ALLOWED_ORIGINS (coma-separados). Si no existe, permite cualquier origen.
+            var allowedOrigins = Environment.GetEnvironmentVariable("ALLOWED_ORIGINS");
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    if (!string.IsNullOrWhiteSpace(allowedOrigins))
+                    {
+                        var origins = allowedOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                        policy.WithOrigins(origins)
+                              .AllowAnyHeader()
+                              .AllowAnyMethod()
+                              .AllowCredentials();
+                    }
+                    else
+                    {
+                        policy.AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    }
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            /*if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            */
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            // habilitar CORS antes de la autorización y de mapear controladores
+            app.UseCors("CorsPolicy");
 
+            app.UseAuthorization();
+                    
 
             app.MapControllers();
 
