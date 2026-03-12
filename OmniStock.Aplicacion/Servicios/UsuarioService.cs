@@ -1,4 +1,4 @@
-﻿using OmniStock.Aplicacion.DTO;
+﻿using OmniStock.Aplicacion.DTO.LoginDto;
 using OmniStock.Aplicacion.DTO.UsuariosDtos;
 using OmniStock.Aplicacion.Interfaces;
 using OmniStock.Dominio;

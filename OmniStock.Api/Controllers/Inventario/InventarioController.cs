@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OmniStock.Aplicacion.Servicios;
-using OmniStock.Aplicacion.DTO.InventarioDtos;
 using OmniStock.Aplicacion.comun;
+using OmniStock.Aplicacion.DTO.InventarioDtos;
+using OmniStock.Aplicacion.Interfaces;
 
 namespace OmniStock.Api.Controllers
 {
@@ -9,9 +9,9 @@ namespace OmniStock.Api.Controllers
     [Route("api/[controller]")]
     public class InventarioController : ControllerBase
     {
-        private readonly InventarioServicio _inventarioServicio;
+        private readonly IInventarioServicio _inventarioServicio;
 
-        public InventarioController(InventarioServicio inventarioServicio)
+        public InventarioController(IInventarioServicio inventarioServicio)
         {
             _inventarioServicio = inventarioServicio;
         }
@@ -22,12 +22,12 @@ namespace OmniStock.Api.Controllers
         {
             var inventario = await _inventarioServicio.ObtenerTodosAsync();
 
-            return Ok(new ApiResponse<object>
+            return Ok(new ApiResponse<List<MovimientoInventarioDto>>
             {
                 Success = true,
                 Message = "Inventario obtenido correctamente",
                 Data = inventario
-            });
+            }); 
         }
 
         // Obtener inventario por producto
@@ -38,7 +38,7 @@ namespace OmniStock.Api.Controllers
             {
                 var inventario = await _inventarioServicio.ObtenerPorProductoAsync(idProducto);
 
-                return Ok(new ApiResponse<object>
+                return Ok(new ApiResponse<MovimientoInventarioDto>
                 {
                     Success = true,
                     Message = "Inventario obtenido correctamente",
@@ -47,7 +47,7 @@ namespace OmniStock.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ApiResponse<object>
+                return NotFound(new ApiResponse<MovimientoInventarioDto>
                 {
                     Success = false,
                     Message = ex.Message
@@ -64,7 +64,7 @@ namespace OmniStock.Api.Controllers
                 var resultado = await _inventarioServicio
                     .RegistrarStockInicialAsync(request.IdProducto, request.Cantidad);
 
-                return Ok(new ApiResponse<object>
+                return Ok(new ApiResponse<MovimientoInventarioDto>
                 {
                     Success = true,
                     Message = "Stock inicial registrado correctamente",
@@ -73,7 +73,7 @@ namespace OmniStock.Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ApiResponse<object>
+                return BadRequest(new ApiResponse<MovimientoInventarioDto>
                 {
                     Success = false,
                     Message = ex.Message

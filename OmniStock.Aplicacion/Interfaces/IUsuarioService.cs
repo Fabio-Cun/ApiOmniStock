@@ -1,4 +1,4 @@
-﻿using OmniStock.Aplicacion.DTO;
+﻿using OmniStock.Aplicacion.DTO.LoginDto;
 using OmniStock.Aplicacion.DTO.UsuariosDtos;
 
 namespace OmniStock.Aplicacion.Interfaces

@@ -1,4 +1,7 @@
-﻿using OmniStock.Dominio;
+﻿using OmniStock.Aplicacion.DTO;
+using OmniStock.Aplicacion.DTO.ClientesDto;
+using OmniStock.Aplicacion.Interfaces;
+using OmniStock.Dominio;
 using OmniStock.Infraestructura.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,7 +9,7 @@ using System.Text;
 
 namespace OmniStock.Aplicacion.Servicios
 {
-    public class ClienteServicio
+    public class ClienteServicio: IclienteServicio
     {
         private readonly IClienteRepositorio _clienteRepositorio;
 
@@ -18,28 +21,55 @@ namespace OmniStock.Aplicacion.Servicios
         /// <summary>
         /// Obtiene todos los clientes registrados.
         /// </summary>
-        public async Task<List<ClienteDominio>> ObtenerTodosAsync()
+        public async Task<List<ClienteDto>> ObtenerTodosAsync()
         {
-            return await _clienteRepositorio.ObtenerTodosAsync();
+            var clientes = await _clienteRepositorio.ObtenerTodosAsync();
+
+            var resultado = new List<ClienteDto>();
+
+            foreach (var cliente in clientes)
+            {
+                resultado.Add(new ClienteDto
+                {
+                    IdCliente = cliente.IdCliente,
+                    Nombre = cliente.Nombre,
+                    Apellido = cliente.Apellido,
+                    Email = cliente.Email,
+                    Telefono = cliente.Telefono,
+                    FechaRegistro = cliente.FechaRegistro
+                });
+            }
+
+            return resultado;
         }
 
         /// <summary>
         /// Obtiene un cliente por su ID. Lanza excepción si no existe.
         /// </summary>
-        public async Task<ClienteDominio> ObtenerPorIdAsync(int id)
+        public async Task<ClienteDto> ObtenerPorIdAsync(int id)
         {
             var cliente = await _clienteRepositorio.ObtenerPorIdAsync(id);
 
             if (cliente == null)
                 throw new KeyNotFoundException($"No se encontró el cliente con ID {id}.");
 
-            return cliente;
+            var resultado = new ClienteDto
+            {
+                IdCliente = cliente.IdCliente,
+                Nombre = cliente.Nombre,
+                Apellido = cliente.Apellido,
+                Email = cliente.Email,
+                Telefono = cliente.Telefono,
+                FechaRegistro = cliente.FechaRegistro
+            };
+
+            return resultado;
         }
 
         /// <summary>
         /// Registra un nuevo cliente con sus datos de contacto.
         /// </summary>
-        public async Task<ClienteDominio> CrearAsync(string nombre, string apellido, string email, string telefono)
+        public async Task<ClienteDto> CrearAsync(string nombre, string apellido, string email, string telefono)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 throw new ArgumentException("El nombre del cliente es obligatorio.");
@@ -50,7 +80,21 @@ namespace OmniStock.Aplicacion.Servicios
             if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentException("El email del cliente es obligatorio.");
 
-            return await _clienteRepositorio.CrearAsync(nombre.Trim(), apellido.Trim(), email.Trim(), telefono?.Trim() ?? string.Empty);
+            var cliente = await _clienteRepositorio.CrearAsync(
+                nombre.Trim(),
+                apellido.Trim(),
+                email.Trim(),
+                telefono?.Trim() ?? string.Empty);
+
+            return new ClienteDto
+            {
+                IdCliente = cliente.IdCliente,
+                Nombre = cliente.Nombre,
+                Apellido = cliente.Apellido,
+                Email = cliente.Email,
+                Telefono = cliente.Telefono,
+                FechaRegistro = cliente.FechaRegistro
+            };
         }
 
         /// <summary>

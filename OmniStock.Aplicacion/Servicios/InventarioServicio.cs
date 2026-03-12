@@ -1,4 +1,5 @@
 ﻿using OmniStock.Aplicacion.DTO.InventarioDtos;
+using OmniStock.Aplicacion.Interfaces;
 using OmniStock.Dominio;
 using OmniStock.Infraestructura.Interfaces;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace OmniStock.Aplicacion.Servicios
 {
-    public class InventarioServicio
+    public class InventarioServicio:IInventarioServicio
     {
         private readonly IInventarioRepositorio _inventarioRepositorio;
         private readonly IProductoRepositorio _productoRepositorio;

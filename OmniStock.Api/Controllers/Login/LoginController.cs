@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OmniStock.Aplicacion.comun;
-using OmniStock.Aplicacion.DTO;
+using OmniStock.Aplicacion.DTO.LoginDto;
 using OmniStock.Aplicacion.DTO.UsuariosDtos;
 using OmniStock.Aplicacion.Interfaces;
 

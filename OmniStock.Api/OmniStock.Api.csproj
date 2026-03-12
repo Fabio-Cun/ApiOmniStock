@@ -24,4 +24,8 @@
     <ProjectReference Include="..\OmniStock.Infraestructura\OmniStock.Infraestructura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Clientes\" />
+  </ItemGroup>
+
 </Project>

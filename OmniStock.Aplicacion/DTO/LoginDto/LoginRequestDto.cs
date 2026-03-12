@@ -1,4 +1,4 @@
-﻿namespace OmniStock.Aplicacion.DTO
+﻿namespace OmniStock.Aplicacion.DTO.LoginDto
 {
     public class LoginRequestDto
     {
