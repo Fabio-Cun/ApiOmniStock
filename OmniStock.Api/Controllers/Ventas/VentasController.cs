@@ -104,7 +104,7 @@ namespace OmniStock.Api.Controllers.Ventas
                 return BadRequest(new ApiResponse<VentaDominio>
                 {
                     Success = false,
-                    Message = ex.Message
+                    Message = ex.InnerException?.Message ?? ex.Message
                 });
             }
         }

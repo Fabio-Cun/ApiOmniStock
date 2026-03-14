@@ -13,6 +13,10 @@ public partial class DetalleVenta
 
     public int Cantidad { get; set; }
 
+    public decimal Iva { get; set; }
+
+    public string? MetodoPago { get; set; }
+
     public decimal PrecioUnitario { get; set; }
 
     public decimal Subtotal { get; set; }

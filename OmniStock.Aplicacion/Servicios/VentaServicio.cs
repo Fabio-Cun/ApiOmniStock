@@ -117,6 +117,8 @@ namespace OmniStock.Aplicacion.Servicios
                 {
                     IdProducto = item.IdProducto,
                     Cantidad = item.Cantidad,
+                    Iva= item.Iva,
+                    MetodoPago =item.MetodoPago,
                     PrecioUnitario = producto.Precio,
                     Subtotal = subtotal
                 });

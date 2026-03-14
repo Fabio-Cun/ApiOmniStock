@@ -8,6 +8,9 @@ namespace OmniStock.Infraestructura.Datos;
 
 public partial class OmniStockDbContext : DbContext
 {
+    public OmniStockDbContext()
+    {
+    }
 
     public OmniStockDbContext(DbContextOptions<OmniStockDbContext> options)
         : base(options)
@@ -65,6 +68,9 @@ public partial class OmniStockDbContext : DbContext
             entity.Property(e => e.IdCliente)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_cliente");
+            entity.Property(e => e.Cedula)
+                .HasColumnType("int(10)")
+                .HasColumnName("cedula");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
@@ -102,6 +108,12 @@ public partial class OmniStockDbContext : DbContext
             entity.Property(e => e.IdVenta)
                 .HasColumnType("int(11)")
                 .HasColumnName("id_venta");
+            entity.Property(e => e.Iva)
+                .HasPrecision(10, 2)
+                .HasColumnName("iva");
+            entity.Property(e => e.MetodoPago)
+                .HasMaxLength(100)
+                .HasColumnName("metodo_pago");
             entity.Property(e => e.PrecioUnitario)
                 .HasPrecision(10, 2)
                 .HasColumnName("precio_unitario");

@@ -15,6 +15,8 @@ namespace OmniStock.Aplicacion.DTO.VentasDtos
         public int IdProducto { get; set; }
 
         public int Cantidad { get; set; }
+        public decimal Iva { get; set; }
+        public string? MetodoPago { get; set; }
 
         public decimal PrecioUnitario { get; set; }
 
