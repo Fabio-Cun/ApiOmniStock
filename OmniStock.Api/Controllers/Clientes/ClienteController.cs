@@ -59,6 +59,7 @@ namespace OmniStock.Api.Controllers
             try
             {
                 var cliente = await _clienteServicio.CrearAsync(
+                    request.Cedula,
                     request.Nombre,
                     request.Apellido,
                     request.Email,
@@ -89,6 +90,7 @@ namespace OmniStock.Api.Controllers
             {
                 await _clienteServicio.ActualizarAsync(
                     id,
+                    request.Cedula,
                     request.Nombre,
                     request.Apellido,
                     request.Email,

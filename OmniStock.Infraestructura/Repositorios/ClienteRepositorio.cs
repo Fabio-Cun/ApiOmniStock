@@ -32,11 +32,12 @@ namespace OmniStock.Infraestructura.Repositorios
             return MapToDomain(cliente);
         }
 
-        public async Task<ClienteDominio> CrearAsync(string nombre, string apellido, string email, string telefono)
+        public async Task<ClienteDominio> CrearAsync(int cedula, string nombre, string apellido, string email, string telefono)
         {
             var cliente = new Cliente
             {
                 NombreCompleto = $"{nombre} {apellido}",
+                Cedula = cedula,
                 Email = email,
                 Telefono = telefono,
                 FechaCreacion = DateTime.Now
@@ -54,7 +55,7 @@ namespace OmniStock.Infraestructura.Repositorios
 
             if (cliente == null)
                 return;
-
+            cliente.Cedula = clienteDominio.Cedula; 
             cliente.NombreCompleto = $"{clienteDominio.Nombre} {clienteDominio.Apellido}";
             cliente.Email = clienteDominio.Email;
             cliente.Telefono = clienteDominio.Telefono;
@@ -80,6 +81,7 @@ namespace OmniStock.Infraestructura.Repositorios
             return new ClienteDominio
             {
                 IdCliente = cliente.IdCliente,
+                Cedula = cliente.Cedula,
                 Nombre = partes.Length > 0 ? partes[0] : string.Empty,
                 Apellido = partes.Length > 1 ? partes[1] : string.Empty,
                 Email = cliente.Email ?? string.Empty,

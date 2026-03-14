@@ -100,6 +100,7 @@ namespace OmniStock.Aplicacion.Servicios
             {
                 IdUsuario = usuario.IdUsuario,
                 NombreUsuario = usuario.NombreUsuario,
+                NombreCompleto = usuario.NombreCompleto,
                 IdRol = usuario.IdRol
             };
         }

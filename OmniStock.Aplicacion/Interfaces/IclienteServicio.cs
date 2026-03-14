@@ -9,8 +9,8 @@ namespace OmniStock.Aplicacion.Interfaces
     {
         Task<List<ClienteDto>> ObtenerTodosAsync();
         Task<ClienteDto> ObtenerPorIdAsync(int id);
-        Task<ClienteDto> CrearAsync(string nombre, string apellido, string email, string telefono);
-        Task ActualizarAsync(int id, string nombre, string apellido, string email, string telefono);
+        Task<ClienteDto> CrearAsync(int cedula, string nombre, string apellido, string email, string telefono);
+        Task ActualizarAsync(int id,int cedula, string nombre, string apellido, string email, string telefono);
         Task EliminarAsync(int id);
 
     }

@@ -32,6 +32,7 @@ namespace OmniStock.Aplicacion.Servicios
                 resultado.Add(new ClienteDto
                 {
                     IdCliente = cliente.IdCliente,
+                    Cedula = cliente.Cedula,
                     Nombre = cliente.Nombre,
                     Apellido = cliente.Apellido,
                     Email = cliente.Email,
@@ -56,6 +57,7 @@ namespace OmniStock.Aplicacion.Servicios
             var resultado = new ClienteDto
             {
                 IdCliente = cliente.IdCliente,
+                Cedula = cliente.Cedula,
                 Nombre = cliente.Nombre,
                 Apellido = cliente.Apellido,
                 Email = cliente.Email,
@@ -69,7 +71,7 @@ namespace OmniStock.Aplicacion.Servicios
         /// <summary>
         /// Registra un nuevo cliente con sus datos de contacto.
         /// </summary>
-        public async Task<ClienteDto> CrearAsync(string nombre, string apellido, string email, string telefono)
+        public async Task<ClienteDto> CrearAsync(int cedula, string nombre, string apellido, string email, string telefono)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 throw new ArgumentException("El nombre del cliente es obligatorio.");
@@ -81,6 +83,7 @@ namespace OmniStock.Aplicacion.Servicios
                 throw new ArgumentException("El email del cliente es obligatorio.");
 
             var cliente = await _clienteRepositorio.CrearAsync(
+                cedula,
                 nombre.Trim(),
                 apellido.Trim(),
                 email.Trim(),
@@ -89,6 +92,7 @@ namespace OmniStock.Aplicacion.Servicios
             return new ClienteDto
             {
                 IdCliente = cliente.IdCliente,
+                Cedula = cliente.Cedula,
                 Nombre = cliente.Nombre,
                 Apellido = cliente.Apellido,
                 Email = cliente.Email,
@@ -100,7 +104,7 @@ namespace OmniStock.Aplicacion.Servicios
         /// <summary>
         /// Actualiza los datos de un cliente existente.
         /// </summary>
-        public async Task ActualizarAsync(int id, string nombre, string apellido, string email, string telefono)
+        public async Task ActualizarAsync(int id,int cedula, string nombre, string apellido, string email, string telefono)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 throw new ArgumentException("El nombre del cliente es obligatorio.");
@@ -112,6 +116,7 @@ namespace OmniStock.Aplicacion.Servicios
                 ?? throw new KeyNotFoundException($"No se encontró el cliente con ID {id}.");
 
             cliente.Nombre = nombre.Trim();
+            cliente.Cedula = cedula;    
             cliente.Apellido = apellido.Trim();
             cliente.Email = email.Trim();
             cliente.Telefono = telefono?.Trim() ?? string.Empty;
