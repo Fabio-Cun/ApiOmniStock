@@ -19,10 +19,6 @@ namespace OmniStock.Dominio
 
         public decimal Subtotal { get; set; }
 
-        // Propiedades de navegación (opcionales en dominio simple)
-        public ProductoDominio? Producto { get; set; }
-
-        public VentaDominio? Venta { get; set; }
     }
 
 }

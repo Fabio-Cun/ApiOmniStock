@@ -10,6 +10,8 @@ namespace OmniStock.Dominio
 
         public int IdProducto { get; set; }
 
+        public string? NombreProducto { get; set; }
+
         public int Cantidad { get; set; }
 
         public DateTime FechaIngreso { get; set; }

@@ -22,29 +22,30 @@ namespace OmniStock.Aplicacion.Servicios
         /// <summary>
         /// Obtiene todos los registros de inventario.
         /// </summary>
-        public async Task<List<MovimientoInventarioDto>> ObtenerTodosAsync()
+        public async Task<List<InventarioDto>> ObtenerTodosAsync()
         {
-            var resultado = new List<MovimientoInventarioDto>();
+            var resultado = new List<InventarioDto>();
             var datos =  await _inventarioRepositorio.ObtenerTodosAsync();
             if (datos.Count > 0)
             {
                 foreach (var item in datos)
                 {
                     var producto = await _productoRepositorio.ObtenerPorIdAsync(item.IdProducto);
-                    resultado.Add(new MovimientoInventarioDto
+                    resultado.Add(new InventarioDto
                     {
                         IdInventario = item.IdInventario,
                         IdProducto = item.IdProducto,
                         Cantidad = item.Cantidad,
                         FechaIngreso = item.FechaIngreso,
-
+                        NombreProducto = producto?.NombreProducto,
+                        Precio = producto?.Precio ?? 0
                     });
                 }
 
             }
             else
             {
-               return (List<MovimientoInventarioDto>)resultado.DefaultIfEmpty();
+               return (List<InventarioDto>)resultado.DefaultIfEmpty();
             }
                 
 

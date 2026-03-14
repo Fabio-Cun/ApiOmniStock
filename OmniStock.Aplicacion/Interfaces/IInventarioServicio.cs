@@ -8,7 +8,7 @@ namespace OmniStock.Aplicacion.Interfaces
 {
     public interface IInventarioServicio
     {
-        Task<List<MovimientoInventarioDto>> ObtenerTodosAsync();
+        Task<List<InventarioDto>> ObtenerTodosAsync();
 
         Task<MovimientoInventarioDto> ObtenerPorProductoAsync(int idProducto);
 

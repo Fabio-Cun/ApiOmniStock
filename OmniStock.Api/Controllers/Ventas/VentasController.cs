@@ -86,7 +86,7 @@ namespace OmniStock.Api.Controllers.Ventas
         public async Task<IActionResult> ProcesarVenta(
             [FromQuery] int? idCliente,
             [FromQuery] int idUsuario,
-            [FromBody] List<ItemVentaDto> items)
+            [FromBody] List<DetalleVentaDto> items)
         {
             try
             {

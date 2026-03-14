@@ -22,7 +22,7 @@ namespace OmniStock.Api.Controllers
         {
             var inventario = await _inventarioServicio.ObtenerTodosAsync();
 
-            return Ok(new ApiResponse<List<MovimientoInventarioDto>>
+            return Ok(new ApiResponse<List<InventarioDto>>
             {
                 Success = true,
                 Message = "Inventario obtenido correctamente",

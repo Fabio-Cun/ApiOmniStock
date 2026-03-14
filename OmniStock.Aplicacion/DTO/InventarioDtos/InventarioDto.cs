@@ -15,5 +15,7 @@ namespace OmniStock.Aplicacion.DTO.InventarioDtos
         public DateTime FechaIngreso { get; set; }
 
         public string? NombreProducto { get; set; }
+
+        public decimal Precio { get; set; } = 0;
     }
 }

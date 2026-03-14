@@ -80,11 +80,12 @@ namespace OmniStock.Aplicacion.Servicios
         /// <summary>
         /// Procesa una nueva venta: valida stock, calcula totales y descuenta inventario.
         /// </summary>
-        public async Task<VentaDominio> ProcesarVentaAsync(int? idCliente, int idUsuario, List<ItemVentaDto> items)
+        public async Task<VentaDominio> ProcesarVentaAsync(int? idCliente, int idUsuario, List<DetalleVentaDto> items)
         {
             if (items == null || items.Count == 0)
                 throw new ArgumentException("La venta debe contener al menos un producto.");
 
+            // Validar cliente
             if (idCliente.HasValue)
             {
                 var clienteExiste = await _clienteRepositorio.ObtenerPorIdAsync(idCliente.Value);
@@ -93,6 +94,7 @@ namespace OmniStock.Aplicacion.Servicios
             }
 
             var detalles = new List<DetalleVentaDominio>();
+            decimal total = 0;
 
             foreach (var item in items)
             {
@@ -109,22 +111,29 @@ namespace OmniStock.Aplicacion.Servicios
                         $"Stock insuficiente para '{producto.NombreProducto}'. " +
                         $"Disponible: {inventario?.Cantidad ?? 0}, solicitado: {item.Cantidad}.");
 
+                var subtotal = producto.Precio * item.Cantidad;
+
                 detalles.Add(new DetalleVentaDominio
                 {
                     IdProducto = item.IdProducto,
                     Cantidad = item.Cantidad,
                     PrecioUnitario = producto.Precio,
-                    Subtotal = producto.Precio * item.Cantidad
+                    Subtotal = subtotal
                 });
+
+                total += subtotal;
             }
 
-            // Descontar inventario por cada ítem confirmado
+            // Descontar inventario
             foreach (var item in items)
             {
                 await _inventarioRepositorio.AjustarCantidadAsync(item.IdProducto, -item.Cantidad);
             }
 
-            return await _ventaRepositorio.CrearAsync(idCliente, idUsuario, detalles);
+            // Crear venta
+            var venta = await _ventaRepositorio.CrearAsync(idCliente, idUsuario, detalles);
+
+            return venta;
         }
 
         /// <summary>

@@ -109,6 +109,13 @@ namespace OmniStock.Infraestructura.Repositorios
                 IdInventario = inventario.IdInventario,
                 IdProducto = inventario.IdProducto,
                 Cantidad = inventario.Cantidad,
+                Producto = inventario.IdProductoNavigation != null ? new ProductoDominio
+                {
+                    IdProducto = inventario.IdProductoNavigation.IdProducto,
+                    NombreProducto = inventario.IdProductoNavigation.NombreProducto,
+                    Descripcion = inventario.IdProductoNavigation.Descripcion,
+                    Precio = inventario.IdProductoNavigation.Precio
+                } : null,
                 FechaIngreso = inventario.FechaIngreso
             };
         }

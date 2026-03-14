@@ -18,10 +18,5 @@ namespace OmniStock.Dominio
         public decimal Total { get; set; }
 
         public List<DetalleVentaDominio> Detalles { get; set; } = new List<DetalleVentaDominio>();
-
-        // Navegaciones opcionales
-        public ClienteDominio? Cliente { get; set; }
-
-        public UsuarioDominio? Usuario { get; set; }
     }
 }

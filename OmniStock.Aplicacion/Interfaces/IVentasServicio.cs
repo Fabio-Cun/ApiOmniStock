@@ -15,7 +15,7 @@ namespace OmniStock.Aplicacion.Interfaces
         Task<List<VentaDominio>> ObtenerPorClienteAsync(int idCliente);
         Task<List<VentaDominio>> ObtenerPorUsuarioAsync(int idUsuario);
         Task<List<VentaDominio>> ObtenerPorRangoFechaAsync(DateTime desde, DateTime hasta);
-        Task<VentaDominio> ProcesarVentaAsync(int? idCliente, int idUsuario, List<ItemVentaDto> items);
+        Task<VentaDominio> ProcesarVentaAsync(int? idCliente, int idUsuario, List<DetalleVentaDto> items);
         Task CancelarVentaAsync(int idVenta);
         Task<ResumenVentasDto> ObtenerResumenVentasAsync(DateTime desde,DateTime hasta);
 
